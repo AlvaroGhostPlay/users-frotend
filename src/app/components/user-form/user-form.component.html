@@ -1,0 +1,80 @@
+<div class="card">
+        <div class="card-content">
+            <div class="card-header">
+                <h5 class="card-title">From {{(user.id > 0)?'Actualizar':'Crear Usuario'}}</h5>
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+                    <div>
+                        <input placeholder="Name" name="name" [(ngModel)]="user.name" class="form-control my-2" required
+                            #name="ngModel">
+                        <!--el ngModel hace referencia a las variables del componente para ceeder a ellas como esta entre comillas "user.name"-->
+                        @if (name.invalid && (name.dirty || name.touched)) {
+                        @if (name.errors!['required']) {
+                        <div class="text-danger">Nombre es requerido</div>
+                        }
+                        }
+                    </div>
+                    <div>
+                        <input placeholder="Lastname" name="lastname" [(ngModel)]="user.lastname"
+                            class="form-control my-2" required #lastname="ngModel">
+                        @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+                        @if (lastname.errors!['required']) {
+                        <div class="text-danger">Apellido es requerido</div>
+                        }
+                        }
+                    </div>
+                    <div>
+                        <input placeholder="Email" name="email" [(ngModel)]="user.email" class="form-control my-2"
+                            required email type="email" #email="ngModel">
+                        @if (email.invalid && (email.dirty || email.touched)) {
+                        @if (email.errors!['required']) {
+                        <div class="text-danger">Email es requerido</div>
+                        }
+                        @if(email.errors!['email']){
+                        <div class="text-danger">El Email no tiene formato correcto</div>
+                        }
+                        }
+                    </div>
+                    <div>
+                        <input placeholder="Username" name="username" [(ngModel)]="user.username"
+                            class="form-control my-2" required minlength="8" #username="ngModel">
+                        @if (username.invalid && (username.dirty || username.touched)) {
+                        @if (username.errors!['required']) {
+                        <div class="text-danger">Usuario es requerido</div>
+                        }
+                        @if (username.errors!['minlength']) {
+                        <div class="text-warning">El Usuario debe de tener al menos de 8 Caracteres</div>
+                        }
+                        }
+                    </div>
+                    <div>
+                        <input placeholder="Password" type="password" name="password" [(ngModel)]="user.password"
+                            class="form-control my-2" required minlength="6" #password="ngModel">
+                        @if (password.invalid && (password.dirty || password.touched)) {
+                        @if (password.errors!['required']) {
+                        <div class="text-danger">Contraseña es requerida</div>
+                        }
+                        @if (password.errors!['minlength']) {
+                        <div class="text-warning">La Contraseña debe de tener al menos de 6 Caracteres</div>
+                        }
+                        }
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary my-2" [disabled]="userForm.invalid">
+                            {{(user.id > 0)?'Actualizar':'Crear'}}
+                        </button>
+                        <button type="button" class="btn btn-secondary m-2" (click)="onClear(userForm)">
+                            Clear
+                        </button>
+                    </div>
+
+                </form>
+
+
+
+
+            </div>
+        </div>
+    </div>
