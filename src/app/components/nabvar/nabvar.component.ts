@@ -9,5 +9,4 @@ import { User } from '../../models/user';
   templateUrl: './nabvar.component.html'
 })
 export class NabvarComponent {
-  @Input() users: User[] = []
 }
