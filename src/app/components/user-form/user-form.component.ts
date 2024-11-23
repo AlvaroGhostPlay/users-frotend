@@ -14,7 +14,7 @@ import { UserService } from '../../services/user.service';
 export class UserFormComponent implements OnInit {
 
   user: User;
-  
+
   constructor(
     private route: ActivatedRoute,
     private sharingData: SharingDataService,
@@ -31,13 +31,11 @@ export class UserFormComponent implements OnInit {
         //this.service.findById(id).subscribe(user => this.user = user); //modeo backend
       }
     })
-
   }
 
   onSubmit(userForm: NgForm): void{
     if(userForm.valid){
       this.sharingData.NewUserEventEmitter.emit(this.user);
-      console.log(this.user)
     }
     userForm.reset();
     userForm.resetForm();

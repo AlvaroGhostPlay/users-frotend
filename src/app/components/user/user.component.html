@@ -1,12 +1,13 @@
 <h3>{{title}}</h3>
 <button class="btn btn-primary my-4" [routerLink]="['/users/create']">Crear Usuario</button>
 
-@if (users.length == 0) {
+@if (users == undefined || users.length === 0) {
     <div class="alert alert-warning">No hay registros en el sistema</div>
     }@else {
     <table class="table table-hover table-striped">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Lastname</th>
                 <th>Email</th>
@@ -18,6 +19,7 @@
         <tbody>
             @for (user of users; track $index) {
             <tr>
+                <td> {{user.id}}</td>
                 <td> {{user.name}}</td>
                 <td> {{user.lastname}}</td>
                 <td> {{user.email}}</td>
