@@ -14,15 +14,19 @@ import { UserService } from '../../services/user.service';
 export class UserFormComponent implements OnInit {
 
   user: User;
+  errors: any = [];
 
   constructor(
     private route: ActivatedRoute,
     private sharingData: SharingDataService,
     private service:UserService ){
       this.user = new User();
+
   }
   ngOnInit(): void {
-    this.sharingData.SelectUserEventEmitter.subscribe(user => this.user = user) // modo con Angular
+    this.user = new User();
+    this.sharingData.ErrorFormEventEmitter.subscribe(erros => this.errors = erros);
+    this.sharingData.SelectUserEventEmitter.subscribe(user => this.user = user); // modo con Angular
     this.route.paramMap.subscribe(params => {
       const id:number = +(params.get('id') || '0'); //covertir a string a numero con el +
 
@@ -30,15 +34,15 @@ export class UserFormComponent implements OnInit {
         this.sharingData.FindUserByIdEventEmitter.emit(id); // moco con Angular
         //this.service.findById(id).subscribe(user => this.user = user); //modeo backend
       }
-    })
+    });
   }
 
   onSubmit(userForm: NgForm): void{
-    if(userForm.valid){
+    //if(userForm.valid){
       this.sharingData.NewUserEventEmitter.emit(this.user);
-    }
-    userForm.reset();
-    userForm.resetForm();
+   //}
+    //userForm.reset();
+    //userForm.resetForm();
   }
 
   onClear(userForm: NgForm): void{
