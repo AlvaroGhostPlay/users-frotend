@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { map, Observable, } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { map, Observable, throwError, } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +30,15 @@ export class UserService {
   }
 
   update(user:User): Observable<User>{
-    return this.http.put<User>(`${this.url}/${user.id}`, user)
+    return this.http.put<User>(`${this.url}/${user.id}`, user);
   }
 
   delete(id:number): Observable<void>{
     return this.http.delete<void>(`${this.url}/${id}`);
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('Error en la API:', error);
+    return throwError(error.error || 'Error desconocido');
   }
 }
